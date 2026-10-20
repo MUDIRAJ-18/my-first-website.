@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameZone - Gaming World</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+    }
+
+    header {
+      padding: 22px 15px;
+      text-align: center;
+      background: #151d35;
+      border-bottom: 2px solid #00e5ff;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #00e5ff;
+      font-size: 34px;
+    }
+
+    header p {
+      color: #c4cbe0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 15px;
+      background: #10172a;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #00e5ff;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 45px 15px;
+      background: linear-gradient(135deg, #192448, #32165e);
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #d3d8ee;
+    }
+
+    .search {
+      display: block;
+      width: 90%;
+      max-width: 450px;
+      margin: 22px auto 0;
+      padding: 14px;
+      border: 2px solid #00e5ff;
+      border-radius: 12px;
+      background: #0b1020;
+      color: white;
+      font-size: 16px;
+    }
+
+    section {
+      padding: 25px 15px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #00e5ff;
+      margin-bottom: 25px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .game-card {
+      padding: 22px;
+      background: #151d35;
+      border: 1px solid #303d60;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .game-card:hover {
+      border-color: #00e5ff;
+      transform: translateY(-3px);
+    }
+
+    .game-icon {
+      font-size: 65px;
+      margin: 5px;
+    }
+
+    .game-card h3 {
+      color: #ffd166;
+    }
+
+    .game-card p {
+      color: #c4cbe0;
+      line-height: 1.5;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 9px;
+      background: #00e5ff;
+      color: #07101c;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ffd166;
+    }
+
+    .mini-game {
+      text-align: center;
+      padding: 25px 15px;
+      background: #151d35;
+      border-radius: 16px;
+    }
+
+    #gameArea {
+      position: relative;
+      height: 240px;
+      max-width: 500px;
+      margin: 20px auto;
+      overflow: hidden;
+      background: #080d19;
+      border: 2px solid #00e5ff;
+      border-radius: 12px;
+    }
+
+    #star {
+      display: none;
+      position: absolute;
+      padding: 0;
+      background: transparent;
+      font-size: 34px;
+      border: none;
+      line-height: 1;
+    }
+
+    #message {
+      color: #ffd166;
+      min-height: 24px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      background: #151d35;
+      color: #c4cbe0;
+      margin-top: 25px;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #ffd166;
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎮 GameZone</h1>
+    <p>Your Gaming World Starts Here!</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#games">Games</a>
+    <a href="#play">Mini Game</a>
+  </nav>
+
+  <div class="hero" id="home">
+    <h2>Level Up Your Fun!</h2>
+    <p>Discover games and try our mini-game.</p>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="🔎 Search games..."
+      aria-label="Search games"
+    >
+  </div>
+
+  <section id="games">
+    <h2 class="section-title">🔥 Explore Games</h2>
+
+    <div class="games" id="gameList">
+
+      <div class="game-card" data-name="minecraft">
+        <div class="game-icon">⛏️</div>
+        <h3>Minecraft</h3>
+        <p>Explore worlds, build houses,
+          and enjoy creative adventures.</p>
+        <button onclick="showGame('Minecraft')">
+          Explore
+        </button>
+      </div>
+
+      <div class="game-card" data-name="racing">
+        <div class="game-icon">🏎️</div>
+        <h3>Racing Zone</h3>
+        <p>Get ready for speed, cars,
+          and exciting racing action.</p>
+        <button onclick="showGame('Racing Zone')">
+          Explore
+        </button>
+      </div>
+
+      <div class="game-card" data-name="arcade">
+        <div class="game-icon">👾</div>
+        <h3>Arcade World</h3>
+        <p>Discover classic arcade fun
+          and challenge your skills.</p>
+        <button onclick="goToMiniGame()">
+          Play Mini Game
+        </button>
+      </div>
+
+      <div class="game-card" data-name="football soccer">
+        <div class="game-icon">⚽</div>
+        <h3>Football Zone</h3>
+        <p>Enjoy football, goals,
+          and sports challenges.</p>
+        <button onclick="showGame('Football Zone')">
+          Explore
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="play">
+    <h2 class="section-title">⭐ Catch the Star</h2>
+
+    <div class="mini-game">
+      <p>Tap the star as many times as you can
+        before the timer ends!</p>
+
+      <p>
+        Score: <strong id="score">0</strong>
+        &nbsp; | &nbsp;
+        Time: <strong id="time">15</strong>s
+      </p>
+
+      <button id="startButton" onclick="startGame()">
+        Start Game
+      </button>
+
+      <div id="gameArea">
+        <button id="star"
+          aria-label="Catch the star"
+          onclick="catchStar()">⭐</button>
+      </div>
+
+      <p id="message">Ready to play?</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>🎮 GameZone | Made by a gaming fan</p>
+    <p>Keep playing, keep learning!</p>
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const cards = document.querySelectorAll(".game-card");
+
+    search.addEventListener("input", function () {
+      const query = search.value.toLowerCase();
+      let visible = 0;
+
+      cards.forEach(function (card) {
+        const name = card.dataset.name;
+        const matches = name.includes(query);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visible++;
+      });
+
+      let oldMessage = document.getElementById("noResults");
+
+      if (oldMessage) oldMessage.remove();
+
+      if (visible === 0) {
+        const msg = document.createElement("p");
+        msg.id = "noResults";
+        msg.className = "no-results";
+        msg.textContent = "No games found. Try another search!";
+        document.getElementById("gameList").appendChild(msg);
+      }
+    });
+
+    function showGame(name) {
+      alert(name + " selected! Add your game link here.");
+    }
+
+    function goToMiniGame() {
+      document.getElementById("play").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    let score = 0;
+    let timeLeft = 15;
+    let timer = null;
+    let playing = false;
+
+    const star = document.getElementById("star");
+    const area = document.getElementById("gameArea");
+    const scoreText = document.getElementById("score");
+    const timeText = document.getElementById("time");
+    const message = document.getElementById("message");
+    const startButton = document.getElementById("startButton");
+
+    function moveStar() {
+      const maxX = Math.max(0, area.clientWidth - 45);
+      const maxY = Math.max(0, area.clientHeight - 45);
+
+      star.style.left = Math.random() * maxX + "px";
+      star.style.top = Math.random() * maxY + "px";
+    }
+
+    function startGame() {
+      clearInterval(timer);
+
+      score = 0;
+      timeLeft = 15;
+      playing = true;
+
+      scoreText.textContent = score;
+      timeText.textContent = timeLeft;
+      message.textContent = "Go! Catch the star!";
+      startButton.disabled = true;
+      startButton.textContent = "Playing...";
+      star.style.display = "block";
+
+      moveStar();
+
+      timer = setInterval(function () {
+        timeLeft--;
+        timeText.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          playing = false;
+          star.style.display = "none";
+          startButton.disabled = false;
+          startButton.textContent = "Play Again";
+          message.textContent =
+            "Game over! Your score: " + score;
+        }
+      }, 1000);
+    }
+
+    function catchStar() {
+      if (!playing) return;
+
+      score++;
+      scoreText.textContent = score;
+      moveStar();
+    }
+  </script>
+
+</body>
+</html>
